@@ -3,15 +3,21 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 
+const IS_WINDOWS = process.platform === "win32";
+
 const CANDIDATES = {
   hermes: [
     process.env.HERMES_CLI_BIN,
     "hermes",
+    IS_WINDOWS ? "hermes.exe" : null,
+    IS_WINDOWS ? "hermes.cmd" : null,
     path.join(os.homedir(), ".hermes", "hermes-agent", "venv", "bin", "hermes"),
   ],
   codex: [
     process.env.CODEX_CLI_BIN,
     "codex",
+    IS_WINDOWS ? "codex.exe" : null,
+    IS_WINDOWS ? "codex.cmd" : null,
   ],
 };
 
@@ -25,8 +31,13 @@ function isExecutable(filePath) {
 }
 
 function commandExists(command) {
-  const result = spawnSync(command, ["--help"], { stdio: "ignore", shell: false });
-  return !result.error && result.status !== 127;
+  if (!command) return false;
+  if (IS_WINDOWS) {
+    const result = spawnSync("where", [command], { stdio: "ignore", shell: false });
+    return !result.error && result.status === 0;
+  }
+  const result = spawnSync("sh", ["-lc", `command -v ${command}`], { stdio: "ignore", shell: false });
+  return !result.error && result.status === 0;
 }
 
 function probeCandidate(candidate) {

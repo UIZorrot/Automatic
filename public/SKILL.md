@@ -30,9 +30,9 @@ AUTOMATIC_CHANNEL_IDS=<channel-id> npx @txzy/automatic-bridge run
 ## Platform support
 
 - Works anywhere Node.js 18+ runs
-- Codex CLI detection is generic if `codex` is on PATH
-- Hermes auto-detect has a Unix-style default path, so on Windows you may need to set `HERMES_CLI_BIN` explicitly
-- If the CLI name or path differs on your OS, set `HERMES_CLI_BIN` or `CODEX_CLI_BIN`
+- Codex auto-detect works on PATH, including Windows
+- Hermes auto-detect checks Unix and Windows-style names; if it still misses, set `HERMES_CLI_BIN`
+- In WSL, the bridge sees the WSL environment; if the CLI is only installed on Windows, point `HERMES_CLI_BIN` or `CODEX_CLI_BIN` at the actual executable or run the bridge on Windows
 
 ## Optional
 
