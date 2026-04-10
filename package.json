@@ -1,0 +1,33 @@
+{
+  "name": "web-agent-control",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "bridge": "node bridge/bin/automatic-bridge.js run",
+    "bridge:doctor": "node bridge/bin/automatic-bridge.js doctor",
+    "bridge:init": "node bridge/bin/automatic-bridge.js init",
+    "bridge:once": "node bridge/bin/automatic-bridge.js once",
+    "bridge:smoke": "node bridge/bin/automatic-bridge.js smoke"
+  },
+  "dependencies": {
+    "next": "16.2.3",
+    "pg": "^8.20.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/pg": "^8.20.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.3",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

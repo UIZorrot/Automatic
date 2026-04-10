@@ -1,0 +1,29 @@
+{
+  "name": "@txzy/automatic-bridge",
+  "version": "0.1.0",
+  "description": "Bridge Automatic channels to Hermes or Codex CLI",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "automatic-bridge": "./bin/automatic-bridge.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "doctor": "node ./bin/automatic-bridge.js doctor",
+    "init": "node ./bin/automatic-bridge.js init",
+    "once": "node ./bin/automatic-bridge.js once",
+    "smoke": "node ./bin/automatic-bridge.js smoke",
+    "run": "node ./bin/automatic-bridge.js run",
+    "pack": "npm pack"
+  }
+}

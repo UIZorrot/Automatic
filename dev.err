@@ -1,0 +1,178 @@
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <InnerScrollAndFocusHandlerOld focusAndScrollRef={{scrollRef:null, ...}} cacheNode={{rsc:{...}, ...}}>
+      <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+        <LoadingBoundary name="aaaaaaaaaa..." loading={null}>
+          <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>
+            <RedirectBoundary>
+              <RedirectErrorBoundary router={{...}}>
+                <InnerLayoutRouter url="/c/aaaaaaa..." tree={[...]} params={{...}} cacheNode={{rsc:{...}, ...}} ...>
+                  <SegmentViewNode type="page" pagePath="c/[channel...">
+                    <SegmentTrieNode>
+                    <ClientPageRoot Component={function ChannelPage} serverProvidedParams={{...}}>
+                      <ChannelPage params={Promise} searchParams={Promise}>
+                        <main className="mx-auto mi...">
+                          <div>
+                          <section className="border bor...">
+                            <h2>
+                            <p>
+                            <div className="mt-4 borde...">
+                              <div className="space-y-2">
+                                <p>
+                                <div className="flex flex-...">
+                                  <input
+                                    type="password"
+                                    placeholder="设置房间密码（4-64）"
+                                    value=""
+                                    onChange={function onChange}
+                                    className="flex-1 border border-black px-3 py-2 text-[14px] outline-none placehold..."
+-                                   style={{caret-color:"transparent"}}
+                                  >
+                                  ...
+                          <section className="mt-4 borde...">
+                            <p>
+                            <div>
+                            <form onSubmit={function sendMessage} className="mt-3 flex ...">
+                              <input
+                                value=""
+                                onChange={function onChange}
+                                disabled={false}
+                                placeholder="输入消息..."
+                                className="flex-1 border border-black px-3 py-2 text-[14px] outline-none placeholder:t..."
+-                               style={{caret-color:"transparent"}}
+                              >
+                              ...
+                  ...
+                ...
+      ...
+ 
+⨯ [turbopack-node]/transforms/postcss.ts:10:1
+Module not found: Can't resolve '@vercel/turbopack/postcss'
+  [90m 8 |[0m
+  [90m 9 |[0m [90m// @ts-ignore[0m
+[31m[1m>[0m [90m10 |[0m [36mimport[0m postcss [36mfrom[0m [32m'@vercel/turbopack/postcss'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m11 |[0m [90m// @ts-ignore[0m
+  [90m12 |[0m [36mimport[0m importedConfig [36mfrom[0m [32m'CONFIG'[0m
+  [90m13 |[0m [36mimport[0m { getReadEnvVariables, toPath, [36mtype[0m [33mTransformIpc[0m } [36mfrom[0m [32m'./transforms'[0m
+
+Import map: aliased to module "'postcss'" inside of [project]/ | aliased to module "'postcss'" inside of [project]/node_modules/next
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ [turbopack-node]/transforms/postcss.ts:10:1
+Module not found: Can't resolve '@vercel/turbopack/postcss'
+  [90m 8 |[0m
+  [90m 9 |[0m [90m// @ts-ignore[0m
+[31m[1m>[0m [90m10 |[0m [36mimport[0m postcss [36mfrom[0m [32m'@vercel/turbopack/postcss'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m11 |[0m [90m// @ts-ignore[0m
+  [90m12 |[0m [36mimport[0m importedConfig [36mfrom[0m [32m'CONFIG'[0m
+  [90m13 |[0m [36mimport[0m { getReadEnvVariables, toPath, [36mtype[0m [33mTransformIpc[0m } [36mfrom[0m [32m'./transforms'[0m
+
+Import map: aliased to module "'postcss'" inside of [project]/ | aliased to module "'postcss'" inside of [project]/node_modules/next
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ [turbopack-node]/transforms/postcss.ts:10:1
+Module not found: Can't resolve '@vercel/turbopack/postcss'
+  [90m 8 |[0m
+  [90m 9 |[0m [90m// @ts-ignore[0m
+[31m[1m>[0m [90m10 |[0m [36mimport[0m postcss [36mfrom[0m [32m'@vercel/turbopack/postcss'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m11 |[0m [90m// @ts-ignore[0m
+  [90m12 |[0m [36mimport[0m importedConfig [36mfrom[0m [32m'CONFIG'[0m
+  [90m13 |[0m [36mimport[0m { getReadEnvVariables, toPath, [36mtype[0m [33mTransformIpc[0m } [36mfrom[0m [32m'./transforms'[0m
+
+Import map: aliased to module "'postcss'" inside of [project]/ | aliased to module "'postcss'" inside of [project]/node_modules/next
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ [turbopack-node]/transforms/postcss.ts:10:1
+Module not found: Can't resolve '@vercel/turbopack/postcss'
+  [90m 8 |[0m
+  [90m 9 |[0m [90m// @ts-ignore[0m
+[31m[1m>[0m [90m10 |[0m [36mimport[0m postcss [36mfrom[0m [32m'@vercel/turbopack/postcss'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m11 |[0m [90m// @ts-ignore[0m
+  [90m12 |[0m [36mimport[0m importedConfig [36mfrom[0m [32m'CONFIG'[0m
+  [90m13 |[0m [36mimport[0m { getReadEnvVariables, toPath, [36mtype[0m [33mTransformIpc[0m } [36mfrom[0m [32m'./transforms'[0m
+
+Import map: aliased to module "'postcss'" inside of [project]/ | aliased to module "'postcss'" inside of [project]/node_modules/next
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[browser] Uncaught Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <ScrollAndMaybeFocusHandler cacheNode={{rsc:{...}, ...}}>
+      <InnerScrollAndFocusHandlerOld focusAndScrollRef={{scrollRef:null, ...}} cacheNode={{rsc:{...}, ...}}>
+        <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+          <LoadingBoundary name="fhpefpjnad..." loading={null}>
+            <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <InnerLayoutRouter url="/c/fhpefpj..." tree={[...]} params={{...}} cacheNode={{rsc:{...}, ...}} ...>
+                    <SegmentViewNode type="page" pagePath="c/[channel...">
+                      <SegmentTrieNode>
+                      <ClientPageRoot Component={function ChannelPage} serverProvidedParams={{...}}>
+                        <ChannelPage params={Promise} searchParams={Promise}>
+                          <main className="mx-auto mi...">
+                            <div>
+                            <section className="border bor...">
+                              <h2>
+                              <p>
+                              <div
++                               className="mt-4 border border-black p-3 sm:p-4"
+-                               className="mt-3"
+                              >
++                               <div className="space-y-2">
+-                               <button
+-                                 type="button"
+-                                 aria-expanded="false"
+-                                 className="border border-black bg-white px-3 py-2 text-[13px] font-semibold leading-..."
+-                               >
+                            ...
+                    ...
+                  ...
+        ...
+
+    at <unknown> (https://react.dev/link/hydration-mismatch)
+    at div (<anonymous>)
+    at ChannelPage (src/app/c/[channelId]/page.tsx:282:29)
+  280 |         </h2>
+  281 |         <p className="mt-2 text-[14px] leading-6 text-zinc-800 sm:text-[15px]">
+> 282 |           {copy.passwordHint}
+      |                             ^
+  283 |         </p>
+  284 |
+  285 |         <div className="mt-3">
