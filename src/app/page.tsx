@@ -6,6 +6,8 @@ import { setLang as persistLang, useLang } from "@/lib/lang";
 
 const COPY = {
   zh: {
+    donate: "\u6253\u8D4F",
+    github: "GitHub",
     heroTitle: "\u8FDB\u5165\u901A\u9053\u5F00\u59CB\u5BF9\u8BDD",
     heroDesc: "\u8F93\u5165 32 \u4F4D\u901A\u9053\u53F7\uFF0C\u6216\u751F\u6210\u4E00\u4E2A\u968F\u673A\u901A\u9053\u540E\u8FDB\u5165\u3002",
     sectionTitle: "\u5F00\u59CB\u804A\u5929",
@@ -15,6 +17,8 @@ const COPY = {
     enter: "\u8FDB\u5165\u901A\u9053",
   },
   en: {
+    donate: "Tip",
+    github: "GitHub",
     heroTitle: "Join A Channel",
     heroDesc: "Enter a 32-char channel ID, or generate one and start chatting.",
     sectionTitle: "Start chatting",
@@ -63,9 +67,19 @@ export default function Home() {
   return (
     <main className="mx-auto min-h-screen w-full max-w-[840px] px-4 py-4 sm:px-6 sm:py-6">
       <div className="mb-4 flex items-center justify-between gap-4">
-        <h1 className="text-[18px] font-semibold tracking-tight sm:text-[20px]">
-          txzy/tool/automatic
-        </h1>
+        <div className="flex items-center gap-3">
+          <h1 className="text-[18px] font-semibold tracking-tight sm:text-[20px]">
+            txzy/tool/automatic
+          </h1>
+          <a
+            href="https://buy.stripe.com/5kQ4gybHj2T26Rv1Jh2sM00"
+            target="_blank"
+            rel="noreferrer"
+            className="border border-black bg-white px-3 py-1.5 text-[12px] font-semibold leading-none sm:text-[13px]"
+          >
+            {copy.donate}
+          </a>
+        </div>
         <div className="flex border border-black">
           <button
             onClick={() => switchLang("zh")}
@@ -123,6 +137,15 @@ export default function Home() {
           </button>
         </div>
       </section>
+
+      <a
+        href="https://github.com/UIZorrot/Automatic"
+        target="_blank"
+        rel="noreferrer"
+        className="mt-4 block w-full border border-black bg-white px-5 py-3 text-center text-[14px] font-semibold sm:mt-5 sm:px-6 sm:py-4 sm:text-[15px]"
+      >
+        {copy.github}
+      </a>
     </main>
   );
 }

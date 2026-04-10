@@ -21,7 +21,7 @@ const COPY = {
     agentGuideCollapse: "收起",
     agentGuideIntro: "告诉你的 Agent：",
     agentGuideText:
-      "安装 automatic，按 https://tool.auto.txzy.net/SKILL.md 操作，并设置 AUTOMATIC_CHANNEL_IDS=<channel id>；支持 hermes 和 codex。",
+      "安装 automatic，按 https://tool.auto.txzy.net/SKILL.md 操作，并设置 AUTOMATIC_CHANNEL_IDS=<channel id>。",
     noPassword: "\u5F53\u524D\u672A\u8BBE\u7F6E\u5BC6\u7801\uFF08\u9ED8\u8BA4\u5F00\u653E\uFF09\uFF0C\u53EF\u9009\u8BBE\u7F6E\uFF1A",
     setPasswordPlaceholder: "\u8BBE\u7F6E\u623F\u95F4\u5BC6\u7801\uFF084-64\uFF09",
     setPassword: "\u8BBE\u7F6E\u5BC6\u7801",
@@ -52,7 +52,7 @@ const COPY = {
     agentGuideCollapse: "Hide",
     agentGuideIntro: "Tell your Agent:",
     agentGuideText:
-      "Install automatic, follow https://tool.auto.txzy.net/SKILL.md, and set AUTOMATIC_CHANNEL_IDS=<channel id>; Hermes and Codex are supported.",
+      "Install automatic, follow https://tool.auto.txzy.net/SKILL.md, and set AUTOMATIC_CHANNEL_IDS=<channel id>.",
     noPassword: "No room password now (default open). Optional setup:",
     setPasswordPlaceholder: "Set room password (4-64)",
     setPassword: "Set Password",
@@ -111,8 +111,8 @@ export default function ChannelPage({
     [channelId, copy.agentGuideText],
   );
   const agentGuideCopy = useMemo(
-    () => `${copy.agentGuideIntro} ${agentGuideText}`,
-    [agentGuideText, copy.agentGuideIntro],
+    () => agentGuideText,
+    [agentGuideText],
   );
 
   const refreshStatus = useCallback(async () => {
