@@ -1,7 +1,7 @@
 import { spawn } from "node:child_process";
 import { setTimeout as sleep } from "node:timers/promises";
 import { defaultAgentArgs, detectAgentBinary } from "./detect.mjs";
-import { getMessages, postAgentMessage, postUserMessage } from "./client.mjs";
+import { getMessages, loginChannel, postAgentMessage, postUserMessage } from "./client.mjs";
 import { log, makePrompt, parseIntValue, splitCommandLine, truncate } from "./utils.mjs";
 
 export function buildTranscript(messages, limit) {
@@ -24,7 +24,8 @@ export function createState(channelId, config) {
     stopped: false,
     historyLimit: config.historyLimit,
     replyLimit: config.replyLimit,
-    apiKey: config.apiKey,
+    roomPassword: config.roomPassword,
+    authCookie: "",
     agentKind: config.agentKind,
     agentBin: config.agentBin,
     agentArgs: config.agentArgs,
@@ -32,11 +33,30 @@ export function createState(channelId, config) {
   };
 }
 
+async function ensureLoggedIn(state, baseUrl) {
+  if (state.authCookie) return state.authCookie;
+  if (!state.roomPassword) return "";
+  const result = await loginChannel(baseUrl, state.channelId, state.roomPassword);
+  state.authCookie = result.cookie;
+  log(`channel=${state.channelId}`, `logged in with room password`);
+  return state.authCookie;
+}
+
 function appendUniqueMessage(state, message) {
   if (state.seenIds.has(message.id)) return false;
   state.seenIds.add(message.id);
   state.history.push(message);
   return true;
+}
+
+function getPendingUserTail(messages) {
+  const pending = [];
+  for (let i = messages.length - 1; i >= 0; i -= 1) {
+    const message = messages[i];
+    if (message.sender === "agent") break;
+    if (message.sender === "user") pending.unshift(message);
+  }
+  return pending;
 }
 
 function resolveAgentCommand(state, prompt) {
@@ -61,17 +81,6 @@ function parseAgentOutput(kind, output) {
   const text = String(output ?? "").replace(/\r/g, "").trim();
   if (!text) return "";
 
-  if (kind === "codex") {
-    const lines = text.split("\n").map((line) => line.trim()).filter(Boolean);
-    for (let i = lines.length - 1; i >= 0; i -= 1) {
-      const line = lines[i];
-      if (!line.startsWith("tokens used") && !line.startsWith("warning:")) {
-        return line;
-      }
-    }
-    return lines[lines.length - 1] || "";
-  }
-
   const lines = text.split("\n");
   const cleaned = [];
   for (const line of lines) {
@@ -83,6 +92,8 @@ function parseAgentOutput(kind, output) {
       continue;
     }
     if (trimmed.startsWith("session_id:")) break;
+    if (trimmed.startsWith("tokens used")) continue;
+    if (trimmed.startsWith("warning:")) continue;
     if (trimmed.startsWith("╭") || trimmed.startsWith("╰") || trimmed.startsWith("│")) continue;
     cleaned.push(line.trimEnd());
   }
@@ -135,12 +146,22 @@ function runAgent(state, prompt) {
 }
 
 export async function bootstrapChannel(state, baseUrl) {
-  const data = await getMessages(baseUrl, state.channelId, 0, "all");
+  await ensureLoggedIn(state, baseUrl);
+  const data = await getMessages(baseUrl, state.channelId, 0, "all", state.authCookie);
   const messages = Array.isArray(data?.messages) ? data.messages : [];
   state.history = [];
   state.seenIds = new Set();
   for (const message of messages) appendUniqueMessage(state, message);
-  state.lastId = messages.length ? messages[messages.length - 1].id : 0;
+
+  const pending = getPendingUserTail(messages);
+  if (pending.length) {
+    log(`channel=${state.channelId}`, `bootstrap found ${pending.length} pending user message(s)`);
+    for (const message of pending) {
+      await processUserMessage(state, baseUrl, message);
+    }
+  }
+
+  state.lastId = state.history.length ? state.history[state.history.length - 1].id : 0;
   log(`channel=${state.channelId}`, `bootstrapped last_id=${state.lastId} history=${state.history.length}`);
 }
 
@@ -159,7 +180,7 @@ export async function processUserMessage(state, baseUrl, message) {
     log(`channel=${state.channelId}`, `agent returned empty reply for message #${message.id}`);
     return null;
   }
-  const result = await postAgentMessage(baseUrl, state.channelId, reply, state.apiKey);
+  const result = await postAgentMessage(baseUrl, state.channelId, reply, state.authCookie);
   const posted = result?.message;
   if (posted) appendUniqueMessage(state, posted);
   log(`channel=${state.channelId}`, `posted agent reply${posted?.id ? ` #${posted.id}` : ""}`);
@@ -167,7 +188,8 @@ export async function processUserMessage(state, baseUrl, message) {
 }
 
 export async function stepChannel(state, baseUrl) {
-  const data = await getMessages(baseUrl, state.channelId, state.lastId, "all");
+  await ensureLoggedIn(state, baseUrl);
+  const data = await getMessages(baseUrl, state.channelId, state.lastId, "all", state.authCookie);
   const messages = Array.isArray(data?.messages) ? data.messages : [];
   if (!messages.length) return [];
 
@@ -203,6 +225,7 @@ export async function runLoop(state, baseUrl, pollIntervalMs) {
 export async function runSmoke(baseUrl, state, probeText, timeoutMs = 60_000) {
   const probe = probeText || `automatic-bridge-smoke-${Date.now()}`;
   const startAt = Date.now();
+  await ensureLoggedIn(state, baseUrl);
   const created = await postUserMessage(baseUrl, state.channelId, probe);
   const createdId = created?.message?.id ?? created?.id ?? null;
   log(`channel=${state.channelId}`, `probe sent${createdId ? ` #${createdId}` : ""}`, JSON.stringify(probe));

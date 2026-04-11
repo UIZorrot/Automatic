@@ -1,5 +1,5 @@
 import path from "node:path";
-import { commandAvailable, detectAgentBinary, detectAgentKind } from "./detect.mjs";
+import { commandAvailable, detectAgentBinary, detectAgentKind, detectAvailableAgentKinds } from "./detect.mjs";
 import { getAuthStatus } from "./client.mjs";
 import { loadConfig, writeInitConfig } from "./config.mjs";
 import { bootstrapChannel, createState, runLoop, runSmoke, stepChannel } from "./runner.mjs";
@@ -56,13 +56,14 @@ function summarizeConfig(config) {
     replyLimit: config.replyLimit,
     agentTimeoutMs: config.agentTimeoutMs,
     statePath: config.statePath,
-    apiKeyPresent: Boolean(config.apiKey),
+    roomPasswordPresent: Boolean(config.roomPassword),
   };
 }
 
 async function commandDoctor(config) {
   const report = {
     ...summarizeConfig(config),
+    availableKinds: detectAvailableAgentKinds(),
     cliDetected: {
       kind: detectAgentKind(config.agentKind),
       binary: detectAgentBinary(config.agentKind),
@@ -125,7 +126,11 @@ async function loadStates(config) {
 
 async function bootstrapAll(states, config) {
   for (const state of states) {
-    await bootstrapChannel(state, config.baseUrl);
+    try {
+      await bootstrapChannel(state, config.baseUrl);
+    } catch (error) {
+      log(`channel=${state.channelId}`, `bootstrap failed`, error?.message || error);
+    }
   }
 }
 

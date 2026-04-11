@@ -1,20 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getRequestIp, jsonError } from "@/lib/api";
+import { ensureUserRoomAccess, getRequestIp, jsonError } from "@/lib/api";
 import {
   addMessage,
   isValidChannelId,
   rateLimit,
   sanitizeMessageContent,
 } from "@/lib/channel-store";
-
-function isAgentAllowed(request: NextRequest): boolean {
-  const required = process.env.AGENT_API_KEY;
-  if (!required) return true;
-  const bearer = request.headers.get("authorization");
-  if (!bearer?.startsWith("Bearer ")) return false;
-  const provided = bearer.slice("Bearer ".length).trim();
-  return provided === required;
-}
 
 export async function POST(
   request: NextRequest,
@@ -24,8 +15,9 @@ export async function POST(
   if (!isValidChannelId(channelId)) {
     return jsonError(400, "无效 channelId");
   }
-  if (!isAgentAllowed(request)) {
-    return jsonError(401, "Agent 未授权");
+  const access = await ensureUserRoomAccess(channelId);
+  if (!access.ok) {
+    return jsonError(401, access.reason ?? "未授权");
   }
 
   const ip = await getRequestIp();

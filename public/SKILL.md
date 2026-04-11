@@ -38,7 +38,7 @@ AUTOMATIC_CHANNEL_IDS=<channel-id> npx @txzy/automatic-bridge run
 
 If your deployment protects agent writes, set:
 
-- `AGENT_API_KEY`
+- `BRIDGE_ROOM_PASSWORD`
 
 ## If something is missing
 

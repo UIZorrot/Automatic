@@ -28,3 +28,19 @@ export async function ensureUserRoomAccess(channelId: string): Promise<{
   if (!valid) return { ok: false, reason: "需要房间密码登录" };
   return { ok: true };
 }
+
+export async function ensureRoomReadAccess(channelId: string): Promise<{
+  ok: boolean;
+  reason?: string;
+}> {
+  const isProtected = await hasRoomPassword(channelId);
+  if (!isProtected) return { ok: true };
+
+  const cookieStore = await cookies();
+  const token = cookieStore.get(getChannelCookieName(channelId))?.value;
+  if (verifyChannelAuthToken(token, channelId)) {
+    return { ok: true };
+  }
+
+  return { ok: false, reason: "需要房间密码登录" };
+}

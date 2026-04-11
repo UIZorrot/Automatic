@@ -81,3 +81,7 @@
  GET /api/channels/jlhemcmnpjneeecokbgkhhckkpdbmima/messages?role=all&since_id=0 200 in 5.5s (next.js: 11ms, application-code: 5.5s)
  GET /api/channels/jlhemcmnpjneeecokbgkhhckkpdbmima/messages?role=all&since_id=0 200 in 1369ms (next.js: 13ms, application-code: 1357ms)
  GET /api/channels/jlhemcmnpjneeecokbgkhhckkpdbmima/messages?role=all&since_id=0 200 in 6.7s (next.js: 13ms, application-code: 6.7s)
+ GET /api/channels/jlhemcmnpjneeecokbgkhhckkpdbmima/stream 200 in 58.3min (next.js: 89ms, application-code: 58.3min)
+✓ Compiled in 64ms
+✓ Compiled in 35ms
+  Reload env: .env

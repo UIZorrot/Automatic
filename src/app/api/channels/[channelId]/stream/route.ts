@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { ensureUserRoomAccess, jsonError } from "@/lib/api";
+import { ensureRoomReadAccess, jsonError } from "@/lib/api";
 import {
   isValidChannelId,
   subscribeAgentMessages,
@@ -16,7 +16,7 @@ export async function GET(
     return jsonError(400, "无效 channelId");
   }
 
-  const access = await ensureUserRoomAccess(channelId);
+  const access = await ensureRoomReadAccess(channelId);
   if (!access.ok) {
     return jsonError(401, access.reason ?? "未授权");
   }

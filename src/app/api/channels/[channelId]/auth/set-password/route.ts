@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createChannelAuthToken, getChannelCookieName } from "@/lib/channel-auth";
 import { ensureUserRoomAccess, jsonError } from "@/lib/api";
 import {
   hasRoomPassword,
@@ -28,15 +27,5 @@ export async function POST(
 
   await setRoomPassword(channelId, password);
 
-  const response = NextResponse.json({ ok: true, hasPassword: true });
-  response.cookies.set({
-    name: getChannelCookieName(channelId),
-    value: createChannelAuthToken(channelId),
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: 24 * 60 * 60,
-  });
-  return response;
+  return NextResponse.json({ ok: true, hasPassword: true, authorized: false });
 }

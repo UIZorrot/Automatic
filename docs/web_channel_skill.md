@@ -20,9 +20,9 @@
 - 方法：`POST`
 - 地址：`{base_url}/api/channels/{channel_id}/agent-message`
 - Header：
-  - `Content-Type: application/json`
-  - 可选：`Authorization: Bearer {AGENT_API_KEY}`
-- Body(JSON)：
+- `Content-Type: application/json`
+  - 如果是受密码保护的房间，先用房间密码登录拿到会话 cookie
+- Body(JSON):
 
 ```json
 {
@@ -32,7 +32,7 @@
 
 说明：
 - 这是 Agent 侧接口，写入的消息 sender 应为 `agent`。
-- 如果环境配置了 `AGENT_API_KEY`，必须带上 Bearer Token。
+- 受密码保护的房间要先登录，之后用会话 cookie 访问。
 - 这条接口不依赖浏览器 UI。
 
 ## 2) Agent 拉取用户消息（轮询）

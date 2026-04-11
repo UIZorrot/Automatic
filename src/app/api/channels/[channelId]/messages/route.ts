@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ensureUserRoomAccess, jsonError } from "@/lib/api";
+import { ensureRoomReadAccess, jsonError } from "@/lib/api";
 import { getMessages, isValidChannelId } from "@/lib/channel-store";
 import type { Sender } from "@/lib/types";
 
@@ -22,7 +22,7 @@ export async function GET(
   const role = parseSender(url.searchParams.get("role"));
 
   if (role === "all" || role === "agent") {
-    const access = await ensureUserRoomAccess(channelId);
+    const access = await ensureRoomReadAccess(channelId);
     if (!access.ok) return jsonError(401, access.reason ?? "未授权");
   }
 

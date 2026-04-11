@@ -176,3 +176,15 @@ https://react.dev/link/hydration-mismatch
   283 |         </p>
   284 |
   285 |         <div className="mt-3">
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.

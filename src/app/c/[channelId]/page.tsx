@@ -232,7 +232,7 @@ export default function ChannelPage({
         return;
       }
       setNewPassword("");
-      setAuth({ hasPassword: true, authorized: true });
+      await refreshStatus();
     } finally {
       setLoading(false);
     }
@@ -321,6 +321,9 @@ export default function ChannelPage({
         </h2>
         <p className="mt-1.5 text-[13px] leading-5 text-zinc-800 sm:text-[14px]">
           {copy.passwordHint}
+        </p>
+        <p className="mt-1 text-[13px] leading-5 text-zinc-800 sm:text-[14px]">
+          {!auth.hasPassword ? copy.noPassword : auth.authorized ? copy.authed : copy.locked}
         </p>
 
         <div className="mt-3">

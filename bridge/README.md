@@ -1,6 +1,6 @@
 # automatic-bridge
 
-A small npm bridge that connects Automatic channels to Hermes or Codex CLI.
+A small npm bridge that connects Automatic channels to Hermes, Codex, Claude Code, OpenCode, or OpenClaw CLI.
 
 ## Commands
 
@@ -37,16 +37,26 @@ Required at minimum:
 
 Optional:
 
-- `BRIDGE_AGENT_KIND=hermes|codex`
+- `BRIDGE_AGENT_KIND=auto|hermes|codex|claude|opencode|openclaw`
 - `HERMES_CLI_BIN`
 - `CODEX_CLI_BIN`
+- `CLAUDE_CLI_BIN`
+- `CLAUDE_CODE_CLI_BIN`
+- `OPENCODE_CLI_BIN`
+- `OPENCLAW_CLI_BIN`
 - `HERMES_CLI_ARGS`
 - `CODEX_CLI_ARGS`
-- `AGENT_API_KEY`
+- `CLAUDE_CLI_ARGS`
+- `CLAUDE_CODE_CLI_ARGS`
+- `OPENCODE_CLI_ARGS`
+- `OPENCLAW_CLI_ARGS`
+- `BRIDGE_ROOM_PASSWORD` (optional; only needed when the room is password-protected)
 - `BRIDGE_POLL_INTERVAL_MS`
 - `BRIDGE_HISTORY_LIMIT`
 - `BRIDGE_REPLY_LIMIT`
 - `BRIDGE_AGENT_TIMEOUT_MS`
+
+If `BRIDGE_AGENT_KIND=auto`, the bridge scans the local machine and picks the first available backend in priority order.
 
 ## Smoke test
 

@@ -114,7 +114,7 @@ bridge 会把 Automatic 的消息整理成 prompt，再把 prompt 交给 Codex C
 2. Vercel 新建项目并设置 Root Directory 为 `web-agent-control`。
 3. 在 Vercel Environment Variables 添加：
 - `CHANNEL_AUTH_SECRET`
-- `AGENT_API_KEY`（可选）
+- `BRIDGE_ROOM_PASSWORD`（仅在房间设了密码时需要）
 - `DATABASE_URL`（或全套 `DATABASE_*`）
 4. 部署后访问首页并创建频道测试。
 5. Agent 侧将 `base_url` 指向你的 Vercel 域名。

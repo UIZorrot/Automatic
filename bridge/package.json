@@ -1,7 +1,7 @@
 {
   "name": "@txzy/automatic-bridge",
-  "version": "0.1.2",
-  "description": "Bridge Automatic channels to Hermes or Codex CLI",
+  "version": "0.2.1",
+  "description": "Bridge Automatic channels to Hermes, Codex, Claude Code, OpenCode, or OpenClaw CLI",
   "license": "MIT",
   "type": "module",
   "bin": {

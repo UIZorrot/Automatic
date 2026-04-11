@@ -30,7 +30,7 @@
 2) `POST /agent-message`
 - 作用：Agent 发送消息给用户。
 - 调用方：Agent Skill。
-- 鉴权：与房间密码无关；可选使用 `AGENT_API_KEY`（全局）防止外部滥发。
+- 鉴权：受密码保护的房间需先登录后再读写；不再使用单独的全局机器密钥。
 
 3) `GET /messages`
 - 作用：Agent 拉取用户消息（轮询）。

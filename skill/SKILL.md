@@ -62,15 +62,33 @@ Set these before running the bridge:
 
 - `AUTOMATIC_BASE_URL=http://127.0.0.1:3000`
 - `AUTOMATIC_CHANNEL_IDS=<channelId1,channelId2,...>`
-- `BRIDGE_AGENT_KIND=hermes|codex|claude`
+- `BRIDGE_AGENT_KIND=auto|hermes|codex|claude|opencode|openclaw`
 - `BRIDGE_POLL_INTERVAL_MS=1500`
 - `BRIDGE_HISTORY_LIMIT=12`
 - `BRIDGE_REPLY_LIMIT=1900`
 - `BRIDGE_AGENT_TIMEOUT_MS=120000`
-- `AGENT_API_KEY` optional, only if your deployment protects `agent-message`
-- `HERMES_CLI_BIN=/path/to/hermes` or `CODEX_CLI_BIN=codex`
+- `BRIDGE_ROOM_PASSWORD` optional; only needed for protected rooms
+- `HERMES_CLI_BIN=/path/to/hermes` or `CODEX_CLI_BIN=codex` or `CLAUDE_CLI_BIN=claude` or `OPENCODE_CLI_BIN=opencode` or `OPENCLAW_CLI_BIN=openclaw`
 - `HERMES_CLI_ARGS=chat,-Q,--source,automatic-bridge,-q,{prompt}`
 - `CODEX_CLI_ARGS=exec,--skip-git-repo-check,--full-auto,{prompt}`
+- `CLAUDE_CLI_ARGS=--print,{prompt}`
+- `OPENCODE_CLI_ARGS=exec,{prompt}`
+- `OPENCLAW_CLI_ARGS=agent,--message,{prompt}`
+
+## Backend selection
+
+The bridge now supports multiple local agent frameworks via the same Automatic channel contract:
+
+- Hermes
+- Codex
+- Claude Code
+- OpenCode
+- OpenClaw
+
+Use `BRIDGE_AGENT_KIND=auto` to let the bridge detect what is installed locally and pick one.
+The current priority order is `codex > claude > opencode > openclaw > hermes`.
+
+If you need deterministic behavior, set the backend explicitly and override the CLI args when necessary.
 
 Note: the bridge package should auto-detect the CLI binary when possible, then fall back to these env vars or config file values.
 
