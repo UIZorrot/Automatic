@@ -11,35 +11,35 @@ type AuthStatus = {
 
 const COPY = {
   zh: {
-    channel: "\u901A\u9053",
-    donate: "\u6253\u8D4F",
-    copy: "\u590D\u5236",
-    copied: "\u5DF2\u590D\u5236",
-    passwordHint: "\u5BC6\u7801\u4EC5\u7528\u4E8E\u524D\u7AEF\u8BBF\u95EE\uFF0C\u4E0E Agent \u901A\u9053\u65E0\u5173\u3002",
+    channel: "通道",
+    donate: "打赏",
+    copy: "复制",
+    copied: "已复制",
+    passwordHint: "密码仅用于前端访问，与 Agent 通道无关。",
     agentGuideLabel: "Agent 接入说明",
     agentGuideExpand: "展开",
     agentGuideCollapse: "收起",
     agentGuideIntro: "告诉你的 Agent：",
     agentGuideText:
-      "安装 automatic，按 https://tool.auto.txzy.net/SKILL.md 操作，并设置 AUTOMATIC_CHANNEL_IDS=<channel id>。",
-    noPassword: "\u5F53\u524D\u672A\u8BBE\u7F6E\u5BC6\u7801\uFF08\u9ED8\u8BA4\u5F00\u653E\uFF09\uFF0C\u53EF\u9009\u8BBE\u7F6E\uFF1A",
-    setPasswordPlaceholder: "\u8BBE\u7F6E\u623F\u95F4\u5BC6\u7801\uFF084-64\uFF09",
-    setPassword: "\u8BBE\u7F6E\u5BC6\u7801",
-    locked: "\u623F\u95F4\u5DF2\u52A0\u5BC6\uFF0C\u8BF7\u8F93\u5165\u5BC6\u7801\u767B\u5F55\u3002",
-    inputPassword: "\u8F93\u5165\u623F\u95F4\u5BC6\u7801",
-    login: "\u767B\u5F55\u623F\u95F4",
-    authed: "\u5DF2\u901A\u8FC7\u623F\u95F4\u5BC6\u7801\u9A8C\u8BC1\u3002",
-    logout: "\u9000\u51FA\u767B\u5F55",
-    sendError: "\u53D1\u9001\u5931\u8D25",
-    setPasswordError: "\u8BBE\u7F6E\u5BC6\u7801\u5931\u8D25",
-    loginError: "\u767B\u5F55\u5931\u8D25",
-    realtime: "\u5B9E\u65F6\u72B6\u6001",
-    sse: "SSE \u5DF2\u8FDE\u63A5",
-    polling: "\u8F6E\u8BE2\u5E95\u5C42\u4E2D",
-    empty: "\u8FD8\u6CA1\u6709\u6D88\u606F\uFF0C\u5148\u53D1\u4E00\u6761\u8BD5\u8BD5\u3002",
-    inputMsg: "\u8F93\u5165\u6D88\u606F...",
-    needAuth: "\u8BF7\u5148\u901A\u8FC7\u623F\u95F4\u9A8C\u8BC1",
-    send: "\u53D1\u9001",
+      "安装 Automatic，它是 agent 与用户之间的轻量级通讯频道插件。按 https://tool.auto.txzy.net/SKILL.md 的说明操作，并设置 AUTOMATIC_CHANNEL_IDS=<channel id>。",
+    noPassword: "当前还没有设置房间密码（默认开放），可选设置：",
+    setPasswordPlaceholder: "设置房间密码（4-64）",
+    setPassword: "设置密码",
+    locked: "房间已加密，请输入密码登录。",
+    inputPassword: "输入房间密码",
+    login: "登录房间",
+    authed: "已通过房间密码验证。",
+    logout: "退出登录",
+    sendError: "发送失败",
+    setPasswordError: "设置密码失败",
+    loginError: "登录失败",
+    realtime: "实时状态",
+    sse: "SSE 已连接",
+    polling: "轮询底层中",
+    empty: "还没有消息，先发一条试试。",
+    inputMsg: "输入消息...",
+    needAuth: "请先通过房间验证",
+    send: "发送",
   },
   en: {
     channel: "Channel",
@@ -52,7 +52,7 @@ const COPY = {
     agentGuideCollapse: "Hide",
     agentGuideIntro: "Tell your Agent:",
     agentGuideText:
-      "Install automatic, follow https://tool.auto.txzy.net/SKILL.md, and set AUTOMATIC_CHANNEL_IDS=<channel id>.",
+      "Install Automatic, a lightweight communication channel plugin between the agent and the user. Follow https://tool.auto.txzy.net/SKILL.md and set AUTOMATIC_CHANNEL_IDS=<channel id>.",
     noPassword: "No room password now (default open). Optional setup:",
     setPasswordPlaceholder: "Set room password (4-64)",
     setPassword: "Set Password",
@@ -425,7 +425,7 @@ export default function ChannelPage({
               }`}
             >
               <div className="mb-1 text-[11px] font-semibold tracking-wide text-zinc-700">
-                {m.sender.toUpperCase()} 路 {new Date(m.timestamp).toLocaleTimeString()}
+                {m.sender.toUpperCase()} · {new Date(m.timestamp).toLocaleTimeString()}
               </div>
               <div className="whitespace-pre-wrap break-words text-[13px] leading-5 sm:text-[14px] sm:leading-6">
                 {m.content}

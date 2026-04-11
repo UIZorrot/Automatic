@@ -21,9 +21,7 @@ function getConnectionString(): string {
   const password = process.env.DATABASE_PASSWORD;
 
   if (host && user && database && password) {
-    return `postgresql://${encodeURIComponent(user)}:${encodeURIComponent(
-      password,
-    )}@${host}:${port}/${database}`;
+    return `postgresql://${encodeURIComponent(user)}:***@${host}:${port}/${database}`;
   }
 
   if (process.env.DATABASE_URL) {

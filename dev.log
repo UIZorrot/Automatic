@@ -62,3 +62,14 @@
  GET /api/channels/fhpefpjnadomefjhkmhgdlfhojkccani/auth/status 200 in 844ms (next.js: 106ms, application-code: 738ms)
  GET /api/channels/fhpefpjnadomefjhkmhgdlfhojkccani/messages?role=all&since_id=0 200 in 1101ms (next.js: 174ms, application-code: 927ms)
  GET /c/fhpefpjnadomefjhkmhgdlfhojkccani 200 in 162ms (next.js: 91ms, application-code: 71ms)
+✓ Compiled in 40ms
+ GET /c/fhpefpjnadomefjhkmhgdlfhojkccani 200 in 326ms (next.js: 117ms, application-code: 209ms)
+ GET /api/channels/fhpefpjnadomefjhkmhgdlfhojkccani/auth/status 200 in 866ms (next.js: 58ms, application-code: 808ms)
+ GET /api/channels/fhpefpjnadomefjhkmhgdlfhojkccani/messages?role=all&since_id=0 200 in 1012ms (next.js: 108ms, application-code: 904ms)
+✓ Compiled in 38ms
+ GET /c/fhpefpjnadomefjhkmhgdlfhojkccani 200 in 290ms (next.js: 88ms, application-code: 202ms)
+ GET /api/channels/fhpefpjnadomefjhkmhgdlfhojkccani/auth/status 200 in 777ms (next.js: 73ms, application-code: 705ms)
+ GET /api/channels/fhpefpjnadomefjhkmhgdlfhojkccani/messages?role=all&since_id=0 200 in 1025ms (next.js: 128ms, application-code: 897ms)
+ GET /api/channels/fhpefpjnadomefjhkmhgdlfhojkccani/stream 200 in 31.0min (next.js: 187ms, application-code: 31.0min)
+ GET /api/channels/jlhemcmnpjneeecokbgkhhckkpdbmima/messages?role=all&since_id=0 200 in 2.8s (next.js: 124ms, application-code: 2.7s)
+ GET /api/channels/jlhemcmnpjneeecokbgkhhckkpdbmima/messages?role=all&since_id=0 200 in 224ms (next.js: 11ms, application-code: 213ms)
