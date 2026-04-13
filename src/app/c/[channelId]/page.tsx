@@ -20,8 +20,10 @@ const COPY = {
     agentGuideExpand: "展开",
     agentGuideCollapse: "收起",
     agentGuideIntro: "告诉你的 Agent：",
-    agentGuideText:
+    agentGuideTextOpen:
       "安装 Automatic，它是 agent 与用户之间的轻量级通讯频道插件。按 https://tool.auto.txzy.net/SKILL.md 的说明操作，并设置 AUTOMATIC_CHANNEL_IDS=<channel id>。",
+    agentGuideTextLocked:
+      "安装 Automatic，它是 agent 与用户之间的轻量级通讯频道插件。按 https://tool.auto.txzy.net/SKILL.md 的说明操作，并设置 AUTOMATIC_CHANNEL_IDS=<channel id>。这个房间已加密，bridge 侧还需要设置同一个房间密码（BRIDGE_ROOM_PASSWORD=房间密码）才能读取和回复。",
     noPassword: "当前还没有设置房间密码（默认开放），可选设置：",
     setPasswordPlaceholder: "设置房间密码（4-64）",
     setPassword: "设置密码",
@@ -51,8 +53,10 @@ const COPY = {
     agentGuideExpand: "Show",
     agentGuideCollapse: "Hide",
     agentGuideIntro: "Tell your Agent:",
-    agentGuideText:
+    agentGuideTextOpen:
       "Install Automatic, a lightweight communication channel plugin between the agent and the user. Follow https://tool.auto.txzy.net/SKILL.md and set AUTOMATIC_CHANNEL_IDS=<channel id>.",
+    agentGuideTextLocked:
+      "Install Automatic, a lightweight communication channel plugin between the agent and the user. Follow https://tool.auto.txzy.net/SKILL.md and set AUTOMATIC_CHANNEL_IDS=<channel id>. This room is encrypted, so the bridge side also needs the same room password (BRIDGE_ROOM_PASSWORD=room password) to read and reply.",
     noPassword: "No room password now (default open). Optional setup:",
     setPasswordPlaceholder: "Set room password (4-64)",
     setPassword: "Set Password",
@@ -106,9 +110,11 @@ export default function ChannelPage({
   );
   const copy = COPY[lang];
   const agentGuideText = useMemo(
-    () =>
-      copy.agentGuideText.replace("<channel id>", channelId || "<channel id>"),
-    [channelId, copy.agentGuideText],
+    () => {
+      const template = auth.hasPassword ? copy.agentGuideTextLocked : copy.agentGuideTextOpen;
+      return template.replace("<channel id>", channelId || "<channel id>");
+    },
+    [auth.hasPassword, channelId, copy.agentGuideTextLocked, copy.agentGuideTextOpen],
   );
   const agentGuideCopy = useMemo(
     () => agentGuideText,

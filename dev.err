@@ -188,3 +188,4 @@ https://react.dev/link/hydration-mismatch
 [browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
 [browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
 [browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+^C^C
